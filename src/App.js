@@ -80,7 +80,7 @@ const App = () => {
 
 
 
-  useEffect(() => {
+  useEffect((contractABI = contractABI) => {
      /*
    * Create a method that gets all waves from your contract
    */
