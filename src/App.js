@@ -127,10 +127,6 @@ const App = () => {
     getAllWaves()
   }, [])
 
-  // const sendMessage = (e) => {
-  //   setMessage(e.target.value)
-  // }
-  
 return (
     <div className="mainContainer">
       <div className="dataContainer">
