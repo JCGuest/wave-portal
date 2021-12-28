@@ -1,0 +1,70 @@
+.mainContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: aliceblue;
+}
+
+.dataContainer {
+  margin-top: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 950px;
+  background-color: antiquewhite;
+  border-radius: 15px;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.header {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 600;
+  width: 600px;
+}
+
+.bio {
+  text-align: center;
+  color: gray;
+  margin-top: 16px;
+}
+
+.text-input {
+  width: 600px;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.waveButton {
+  cursor: pointer;
+  margin-top: 16px;
+  padding: 8px;
+  border: 2;
+  border-radius: 8px;
+  font-size: 20px;
+  background-color: aliceblue;
+  width: 300px;
+}
+
+.waveButton:hover {
+  background-color: darkturquoise;
+}
+
+.waveButton:active {
+  /* background-color: #3e8e41; */
+  box-shadow: 0 3px #666;
+  transform: translateY(3px);
+}
+
+.message-box {
+  background-color: aliceblue;
+  margin-top: 16px;
+  padding: 8px;
+  border-radius: 10px;
+  width: 600px;
+  font-size: 20px;
+}
