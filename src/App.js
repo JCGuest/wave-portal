@@ -78,7 +78,10 @@ const App = () => {
     }
 }
 
- /*
+
+
+  useEffect(() => {
+     /*
    * Create a method that gets all waves from your contract
    */
   const getAllWaves = async () => {
@@ -121,8 +124,6 @@ const App = () => {
       console.log(error);
     }
   }
-
-  useEffect(() => {
     checkIfWalletIsConnected();
     getAllWaves()
   }, [])
