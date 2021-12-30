@@ -135,7 +135,6 @@ const onNewWave = (from, timestamp, message) => {
   let date = new Date(timestamp * 1000)
   let cleanDate = `${date.getMonth()}/${date.getDay()}/${date.getFullYear()}`
   setAllWaves(prevState => [
-    
     {
       address: from,
       timestamp: cleanDate,
@@ -211,9 +210,11 @@ return (
         <div className="header">
           👋 Hello, there!
         </div>
-
         <h3 className="bio">
-        My name is John and I made this application. It's deployed on a blockchain. Connect your Ethereum wallet and wave at me! You can leave a message as well.
+          My name is John and I made this application. It's deployed on the Etherium blockchain. Connect your Ethereum wallet and wave at me! You can leave a message as well.
+        </h3>
+        <h3>
+          <em>Current Network: Rinkeby</em>
         </h3>
         
         <textarea
