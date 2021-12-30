@@ -1,5 +1,5 @@
 body {
-  background-color: aliceblue;
+  background-color: lightskyblue;
 }
 
 .mainContainer {
@@ -49,12 +49,12 @@ body {
   border: 2;
   border-radius: 8px;
   font-size: 20px;
-  background-color: aliceblue;
+  background-color: lightskyblue;
   width: 300px;
 }
 
 .waveButton:hover {
-  background-color: darkturquoise;
+  background-color: pink;
 }
 
 .waveButton:active {
@@ -64,7 +64,7 @@ body {
 }
 
 .message-box {
-  background-color: aliceblue;
+  background-color: pink;
   margin-top: 16px;
   padding: 8px;
   border-radius: 10px;

@@ -8,7 +8,7 @@ const App = () => {
   const [allWaves, setAllWaves] = useState([]);
   const [message, setMessage] = useState("");
 
-  const contractAddress = "0xA13cf29B6F772C5bF54b418A3Ea53dc819CdFDA8"
+  const contractAddress = "0x1135c01ca8A5b91Df700072Ae5Ee0Cd607B0342E"
   const contractABI = abi.abi
   
   const checkIfWalletIsConnected = async () => {
@@ -52,6 +52,7 @@ const App = () => {
 
       console.log("Connected", accounts[0]);
       setCurrentAccount(accounts[0]); 
+      getAllWaves()
     } catch (error) {
       console.log(error)
     }
@@ -67,8 +68,7 @@ const App = () => {
         const wavePortalContract = new ethers.Contract(contractAddress, contractABI, signer);
 
         let count = await wavePortalContract.getTotalWaves();
-        // const waveTxn = await wavePortalContract.wave({message})
-        await wavePortalContract.wave(message)
+        wavePortalContract.wave(message, { gasLimit: 300000 })
         console.log("Retrieved total wave count...", count.toNumber());
       } else {
         console.log("Ethereum object doesn't exist!");
@@ -81,7 +81,7 @@ const App = () => {
 
 
   useEffect(() => {
-    const contractAddress = "0xA13cf29B6F772C5bF54b418A3Ea53dc819CdFDA8"
+    const contractAddress = "0x1135c01ca8A5b91Df700072Ae5Ee0Cd607B0342E"
     const contractABI = abi.abi
      /*
    * Create a method that gets all waves from your contract
@@ -126,9 +126,84 @@ const App = () => {
       console.log(error);
     }
   }
-    checkIfWalletIsConnected();
-    getAllWaves()
+
+// Listen for new Wave event
+let wavePortalContract;
+
+const onNewWave = (from, timestamp, message) => {
+  console.log("NewWave", from, timestamp, message);
+  let date = new Date(timestamp * 1000)
+  let cleanDate = `${date.getMonth()}/${date.getDay()}/${date.getFullYear()}`
+  setAllWaves(prevState => [
+    
+    {
+      address: from,
+      timestamp: cleanDate,
+      message: message,
+    },
+    ...prevState,
+  ]);
+};
+
+if (window.ethereum) {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
+
+  wavePortalContract = new ethers.Contract(contractAddress, contractABI, signer);
+  wavePortalContract.on("NewWave", onNewWave);
+}
+checkIfWalletIsConnected();
+getAllWaves()
+
+return () => {
+  if (wavePortalContract) {
+    wavePortalContract.off("NewWave", onNewWave);
+  }
+};
+
+    
   }, [])
+
+  const getAllWaves = async () => {
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const wavePortalContract = new ethers.Contract(contractAddress, contractABI, signer);
+
+        /*
+         * Call the getAllWaves method from your Smart Contract
+         */
+        const waves = await wavePortalContract.getAllWaves();
+        
+
+        /*
+         * We only need address, timestamp, and message in our UI so let's
+         * pick those out
+         */
+        let wavesCleaned = [];
+        waves.forEach(wave => {
+          let date = new Date(wave.timestamp * 1000)
+          let cleanDate = `${date.getMonth()}/${date.getDay()}/${date.getFullYear()}`
+          wavesCleaned.push({
+            address: wave.waver,
+            timestamp: cleanDate,
+            message: wave.message
+          });
+        });
+
+        /*
+         * Store our data in React State
+         */
+        setAllWaves(wavesCleaned.reverse());
+      } else {
+        console.log("Ethereum object doesn't exist!")
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
 return (
     <div className="mainContainer">
