@@ -211,7 +211,7 @@ return (
           👋 Hello, there!
         </div>
         <h3 className="bio">
-          My name is John and I made this application. It's deployed on the Etherium blockchain. Connect your Ethereum wallet and wave at me! You can leave a message as well.
+          My name is John and I made this application. It's deployed on the Ethereum blockchain. Connect your Ethereum wallet and wave at me! You can leave a message as well.
         </h3>
         <h3>
           <em>Current Network: Rinkeby</em>
